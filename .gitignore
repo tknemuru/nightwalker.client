@@ -14,3 +14,24 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# for windows
+/.gem/
+
+# visual studio
+*.csproj
+*.csproj.user
+*.sln
+*.sln.ide/
+*.suo
+obj/
+bin/
+web.Debug.config
+web.Release.config
+web.config
+
+# public
+/public/
+
+# TypeScript
+*.js.map

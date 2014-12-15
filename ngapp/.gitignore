@@ -3,3 +3,13 @@ dist
 .tmp
 .sass-cache
 bower_components
+
+# bat file
+/*.bat
+
+# visual studio
+bin/
+web.config
+
+# images
+/app/images/
