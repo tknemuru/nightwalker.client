@@ -17,9 +17,9 @@ module NightWalker.Services {
          * 検索を実行します。
          */
         public search(query: string
-            , successCallback: ng.IHttpPromiseCallback<string[]>
+            , successCallback: ng.IHttpPromiseCallback<Models.Image[]>
             , errorCallback: ng.IHttpPromiseCallback<any> = null): void {
-            this.$http.get<string[]>(query)
+            this.$http.get<Models.Image[]>(query)
                 .success(successCallback)
                 .error(errorCallback);
         }

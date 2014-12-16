@@ -11,6 +11,7 @@
 angular
   .module('NightWalker', [
     'NightWalker.Services',
+    'NightWalker.Filters',
     'NightWalker.Controllers'
   ])
   .config(function ($routeProvider) {
@@ -28,4 +29,5 @@ angular
       });
   });
 angular.module('NightWalker.Services', []);
-angular.module('NightWalker.Controllers', ['NightWalker.Services']);
+angular.module('NightWalker.Filters', []);
+angular.module('NightWalker.Controllers', ['NightWalker.Services', 'NightWalker.Filters']);

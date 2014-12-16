@@ -33,10 +33,14 @@
 
     <!-- models -->
     <script src="scripts/models/search-condition-model.js"></script>
+    <script src="scripts/models/image-model.js"></script>
 
     <!-- services -->
     <script src="scripts/services/search-query-creator-service.js"></script>
     <script src="scripts/services/search-service.js"></script>
+
+    <!-- filters -->
+    <script src="scripts/filters/display-width-filter.js"></script>
 
     <!-- directives -->
 
@@ -56,9 +60,9 @@
             <img class="search-lens" src="images/search.png" ng-click="c.search()" />
         </div>
         <div class="thumbnail-container">
-            <div class="thumbnail-item" ng-repeat="imageUrl in imageUrls">
-                <img class="thumbnail" src="{{imageUrl}}" />
-                <div class="thumbnail-download-confirm">Download</div>
+            <div class="thumbnail-item" ng-repeat="image in images" style="width: {{image | displayWidth}}">
+                <img class="thumbnail" src="{{image.url}}" />
+                <div class="thumbnail-download-confirm">Download {{image.width}} x {{image.height}}</div>
             </div>
             <div class="button and-more">And More ...</div>
         </div>

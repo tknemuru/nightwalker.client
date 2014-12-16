@@ -23,7 +23,7 @@ var NightWalker;
                 var query = this.queryCreator.getSearchQuery(condition);
                 // 検索実行
                 this.searcher.search(query, function (data) {
-                    _this.$scope.imageUrls = data;
+                    _this.$scope.images = data;
                 });
             };
             return SearchController;
