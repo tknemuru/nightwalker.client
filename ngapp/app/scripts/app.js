@@ -9,13 +9,9 @@
  * Main module of the application.
  */
 angular
-  .module('ngappApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
+  .module('NightWalker', [
+    'NightWalker.Services',
+    'NightWalker.Controllers'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -31,3 +27,5 @@ angular
         redirectTo: '/'
       });
   });
+angular.module('NightWalker.Services', []);
+angular.module('NightWalker.Controllers', ['NightWalker.Services']);

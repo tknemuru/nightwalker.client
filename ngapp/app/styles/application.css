@@ -1,0 +1,141 @@
+﻿body {
+    font-family: "Source Code Pro", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+input {
+    font-family: "Source Code Pro", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+.button {
+	display: inline-block;
+	width: 200px;
+	height: 54px;
+	text-align: center;
+	text-decoration: none;
+	line-height: 54px;
+	outline: none;
+    cursor: pointer;
+    font-size: 18px;
+
+    background-color: #483d8b;
+	border: 2px solid #483d8b;
+	color: #fff;
+	line-height: 50px;
+}
+.button:hover {
+	background-color: #fff;
+	border-color: #0000cd;
+	color: #0000cd;
+}
+.button::before,
+.button::after {
+	position: absolute;
+	z-index: -1;
+	display: block;
+	content: '';
+}
+.button,
+.button::before,
+.button::after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}
+
+.container {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-size: 30px;
+    width: 1024px;
+    text-align: center;
+    color: #0000cd;
+}
+
+.search-area {
+    position: absolute;
+    left: 370px;
+}
+
+.target-url-text-box {
+    padding:10px;
+    font-size:1.3em;
+    color:#363636;
+    border:solid 1px #ccc;
+    margin:0 0 20px;
+    width:600px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    position: absolute;
+}
+
+.target-url-text-box:focus {
+    outline: 0;
+    border:solid 2px #0000cd;
+    padding:9px;
+}
+
+.search-lens {
+    position: absolute;
+    left: 580px;
+    top: 7px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.thumbnail-container {
+    position: absolute;
+    top: 200px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 1024px;
+}
+
+.thumbnail-item {
+    height: 167px;
+    width: 167px;
+    margin: 3px 0px 0px 3px;
+    position: relative;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.thumbnail-download-confirm {
+    opacity:0;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 24px;
+    height: 167px;
+    width: 167px;
+    top: 0px;
+    position: absolute;
+}
+
+.thumbnail-download-confirm:hover {
+    opacity:0.6;
+    filter: alpha(opacity=60);
+    -ms-filter: "alpha( opacity=60 )";
+    background-color: #0000cd; 
+    display:block;
+    z-index: 100;
+}
+
+.and-more {
+    width: 1016px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 4px;
+    order: 1;
+}
