@@ -11,6 +11,11 @@ module NightWalker.Controllers {
          * 検索対象のURL
          */
         searchUrl: string;
+
+        /**
+         * 検索結果の画像URLリスト
+         */
+        imageUrls: string[];
     }
 
     /**
@@ -21,16 +26,22 @@ module NightWalker.Controllers {
          * コンストラクタ
          */
         constructor(private $scope: ISearchConditionScope
-            , private queryCreator: Services.SearchQueryCreatorService) {
+            , private queryCreator: Services.SearchQueryCreatorService
+            , private searcher: Services.SearchService) {
         }
 
         public search(): void {
             // 検索クエリを取得
             var condition = new Models.SearchCondition(this.$scope.searchUrl);
             var query: string = this.queryCreator.getSearchQuery(condition);
-            alert('search execute query -> ' + query);
+
+            // 検索実行
+            this.searcher.search(query
+                , (data: string[]) => {
+                    this.$scope.imageUrls = data;
+                });
         }
     }
 }
 angular.module('NightWalker.Controllers')
-    .controller('SearchController', ['$scope', 'SearchQueryCreatorService', NightWalker.Controllers.SearchController]);
+    .controller('SearchController', ['$scope', 'SearchQueryCreatorService', 'SearchService', NightWalker.Controllers.SearchController]);
