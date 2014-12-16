@@ -146,6 +146,12 @@ input {
     z-index: 100;
 }
 
+.thumbnail-info-downloaded {
+    font-size: 18px;
+    text-align: center;
+    line-height: 160px;
+}
+
 .and-more {
     width: 1016px;
     margin-top: 20px;
