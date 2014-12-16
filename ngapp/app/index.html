@@ -61,8 +61,10 @@
         </div>
         <div class="thumbnail-container">
             <div class="thumbnail-item" ng-repeat="image in images" style="width: {{image | displayWidth}}">
-                <img class="thumbnail" src="{{image.url}}" />
-                <div class="thumbnail-download-confirm">Download {{image.width}} x {{image.height}}</div>
+                <a href="{{image.url}}" download="{{image.url}}">
+                    <img class="thumbnail" src="{{image.url}}" />
+                    <div class="thumbnail-info">{{image.width}} x {{image.height}}</div>
+                </a>
             </div>
             <div class="button and-more">And More ...</div>
         </div>

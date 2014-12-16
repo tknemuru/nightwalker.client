@@ -104,6 +104,7 @@ input {
     height: 167px;
     margin: 3px 0px 0px 3px;
     position: relative;
+    cursor: pointer;
 }
 
 .thumbnail {
@@ -130,6 +131,18 @@ input {
     -ms-filter: "alpha( opacity=60 )";
     background-color: #0000cd; 
     display:block;
+    z-index: 100;
+}
+
+.thumbnail-info {
+    opacity:0.8;
+    color: white;
+    background-color: #000066;
+    font-size: 13px;
+    height: 15px;
+    width: 100%;
+    bottom: 0px;
+    position: absolute;
     z-index: 100;
 }
 
