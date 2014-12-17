@@ -30,7 +30,7 @@ module NightWalker.Controllers {
         /**
          * 検索中かどうか
          */
-        isSeaching: boolean;
+        isSearching: boolean;
 
         /**
          * 検索が完了したURL
@@ -86,7 +86,7 @@ module NightWalker.Controllers {
                 }
                 else if (this.$scope.buffeHrefs.length > 0) {
                     // 検索中の場合は新たに検索しにいかない
-                    if (this.$scope.isSeaching === true) {
+                    if (this.$scope.isSearching === true) {
                         break;
                     }
 
@@ -99,9 +99,7 @@ module NightWalker.Controllers {
                     var query: string = this.queryCreator.getSearchQuery(condition);
 
                     // 検索実行
-                    this.$scope.isSeaching = true;
-                    $('#loader').removeClass('loader-none');
-                    $('#loader').addClass('loader');
+                    this.$scope.isSearching = true;
                     this.searcher.search(query
                         , (data: Models.ImageResponse) => {
                             var newImages: Models.Image[] = this.minusLoadedImages(data.Images);
@@ -110,9 +108,7 @@ module NightWalker.Controllers {
                             this.$scope.buffeHrefs = this.$scope.buffeHrefs.concat(newUrls);
 
                             // 再帰呼び出し
-                            this.$scope.isSeaching = false;
-                            $('#loader').removeClass('loader');
-                            $('#loader').addClass('loader-none');
+                            this.$scope.isSearching = false;
                             this.andSearch();
                         });
 

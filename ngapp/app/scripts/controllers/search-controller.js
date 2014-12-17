@@ -44,7 +44,7 @@ var NightWalker;
                     }
                     else if (this.$scope.buffeHrefs.length > 0) {
                         // 検索中の場合は新たに検索しにいかない
-                        if (this.$scope.isSeaching === true) {
+                        if (this.$scope.isSearching === true) {
                             break;
                         }
                         // 次の検索先がある場合は、新たな画像を検索しにいく
@@ -55,18 +55,14 @@ var NightWalker;
                         var condition = new NightWalker.Models.SearchCondition(url);
                         var query = this.queryCreator.getSearchQuery(condition);
                         // 検索実行
-                        this.$scope.isSeaching = true;
-                        $('#loader').removeClass('loader-none');
-                        $('#loader').addClass('loader');
+                        this.$scope.isSearching = true;
                         this.searcher.search(query, function (data) {
                             var newImages = _this.minusLoadedImages(data.Images);
                             _this.$scope.buffeImages = _this.$scope.buffeImages.concat(newImages);
                             var newUrls = $(data.Hrefs).not($(_this.$scope.searchCompletedUrls)).get();
                             _this.$scope.buffeHrefs = _this.$scope.buffeHrefs.concat(newUrls);
                             // 再帰呼び出し
-                            _this.$scope.isSeaching = false;
-                            $('#loader').removeClass('loader');
-                            $('#loader').addClass('loader-none');
+                            _this.$scope.isSearching = false;
                             _this.andSearch();
                         });
                         break;
