@@ -16,6 +16,11 @@ module NightWalker.Controllers {
          * 検索結果の画像リスト
          */
         images: Models.Image[];
+
+        /**
+         * 次に検索するURLリスト
+         */
+        hrefs: string[];
     }
 
     /**
@@ -37,8 +42,9 @@ module NightWalker.Controllers {
 
             // 検索実行
             this.searcher.search(query
-                , (data: Models.Image[]) => {
-                    this.$scope.images = data;
+                , (data: Models.ImageResponse) => {
+                    this.$scope.images = data.Images;
+                    this.$scope.hrefs = data.Hrefs;
                 });
         }
     }
