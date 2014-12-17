@@ -35,7 +35,12 @@ module NightWalker.Controllers {
         /**
          * 検索が完了したURL
          */
-        searchCompletedUrl: string[];
+        searchCompletedUrls: string[];
+
+        /**
+         * 表示が完了した画像URL
+         */
+        loadCompletedImageUrls: string[];
     }
 
     /**
@@ -74,7 +79,10 @@ module NightWalker.Controllers {
                 isFirstSearch = false;
                 if (this.$scope.buffeImages.length > 0) {
                     // バッファから画像を表示する
-                    this.$scope.images.push(this.$scope.buffeImages.shift());
+                    // 表示済画像URLとして入れておく
+                    var image = this.$scope.buffeImages.shift();
+                    this.$scope.loadCompletedImageUrls.push(image.url);
+                    this.$scope.images.push(image);
                 }
                 else if (this.$scope.buffeHrefs.length > 0) {
                     // 検索中の場合は新たに検索しにいかない
@@ -84,9 +92,9 @@ module NightWalker.Controllers {
 
                     // 次の検索先がある場合は、新たな画像を検索しにいく
                     // 検索クエリを取得
-                    var url = this.$scope.buffeHrefs.shift();
+                    var url: string = this.$scope.buffeHrefs.shift();
                     // 検索するURLは検索済URLに入れておく
-                    this.$scope.searchCompletedUrl.push(url);
+                    this.$scope.searchCompletedUrls.push(url);
                     var condition = new Models.SearchCondition(url);
                     var query: string = this.queryCreator.getSearchQuery(condition);
 
@@ -94,9 +102,10 @@ module NightWalker.Controllers {
                     this.$scope.isSeaching = true;
                     this.searcher.search(query
                         , (data: Models.ImageResponse) => {
-                            this.$scope.buffeImages = this.$scope.buffeImages.concat(data.Images);
-                            var newUrls = $(data.Hrefs).not($(this.$scope.searchCompletedUrl)).get();
-                            this.$scope.buffeHrefs = this.$scope.buffeHrefs.concat(data.Hrefs);
+                            var newImages: Models.Image[] = this.minusLoadedImages(data.Images);
+                            this.$scope.buffeImages = this.$scope.buffeImages.concat(newImages);
+                            var newUrls: string[] = $(data.Hrefs).not($(this.$scope.searchCompletedUrls)).get();
+                            this.$scope.buffeHrefs = this.$scope.buffeHrefs.concat(newUrls);
 
                             // 再帰呼び出し
                             this.$scope.isSeaching = false;
@@ -121,7 +130,22 @@ module NightWalker.Controllers {
             this.$scope.buffeImages = [];
             this.$scope.buffeHrefs = [];
             this.$scope.isSeaching = false;
-            this.$scope.searchCompletedUrl = [];
+            this.$scope.searchCompletedUrls = [];
+            this.$scope.loadCompletedImageUrls = [];
+        }
+
+        /**
+         * 表示済の画像を除外します。
+         */
+        private minusLoadedImages(newImages: Models.Image[]): Models.Image[] {
+            var minusdNewImage: Models.Image[] = [];
+            newImages.forEach((image, index, images) => {
+                if (this.$scope.loadCompletedImageUrls.indexOf(image.url) < 0) {
+                    minusdNewImage.push(image);
+                }
+            });
+
+            return minusdNewImage;
         }
     }
 }
