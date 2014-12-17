@@ -75,7 +75,7 @@ module NightWalker.Controllers {
         public andSearch(): void {
             var isFirstSearch = true;
 
-            while (isFirstSearch === true || ((this.$scope.images.length + 1) % 4) > 0) {
+            while (isFirstSearch === true || ((this.$scope.images.length + 1) % 30) > 0) {
                 isFirstSearch = false;
                 if (this.$scope.buffeImages.length > 0) {
                     // バッファから画像を表示する
@@ -100,6 +100,8 @@ module NightWalker.Controllers {
 
                     // 検索実行
                     this.$scope.isSeaching = true;
+                    $('#loader').removeClass('loader-none');
+                    $('#loader').addClass('loader');
                     this.searcher.search(query
                         , (data: Models.ImageResponse) => {
                             var newImages: Models.Image[] = this.minusLoadedImages(data.Images);
@@ -109,6 +111,8 @@ module NightWalker.Controllers {
 
                             // 再帰呼び出し
                             this.$scope.isSeaching = false;
+                            $('#loader').removeClass('loader');
+                            $('#loader').addClass('loader-none');
                             this.andSearch();
                         });
 

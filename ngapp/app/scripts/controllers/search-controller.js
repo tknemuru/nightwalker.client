@@ -33,7 +33,7 @@ var NightWalker;
             SearchController.prototype.andSearch = function () {
                 var _this = this;
                 var isFirstSearch = true;
-                while (isFirstSearch === true || ((this.$scope.images.length + 1) % 4) > 0) {
+                while (isFirstSearch === true || ((this.$scope.images.length + 1) % 30) > 0) {
                     isFirstSearch = false;
                     if (this.$scope.buffeImages.length > 0) {
                         // バッファから画像を表示する
@@ -56,6 +56,8 @@ var NightWalker;
                         var query = this.queryCreator.getSearchQuery(condition);
                         // 検索実行
                         this.$scope.isSeaching = true;
+                        $('#loader').removeClass('loader-none');
+                        $('#loader').addClass('loader');
                         this.searcher.search(query, function (data) {
                             var newImages = _this.minusLoadedImages(data.Images);
                             _this.$scope.buffeImages = _this.$scope.buffeImages.concat(newImages);
@@ -63,6 +65,8 @@ var NightWalker;
                             _this.$scope.buffeHrefs = _this.$scope.buffeHrefs.concat(newUrls);
                             // 再帰呼び出し
                             _this.$scope.isSeaching = false;
+                            $('#loader').removeClass('loader');
+                            $('#loader').addClass('loader-none');
                             _this.andSearch();
                         });
                         break;
