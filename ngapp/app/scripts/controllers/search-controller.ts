@@ -18,9 +18,24 @@ module NightWalker.Controllers {
         images: Models.Image[];
 
         /**
-         * 次に検索するURLリスト
+         * バッファとして保持している次に検索するURLリスト
          */
-        hrefs: string[];
+        buffeHrefs: string[];
+
+        /**
+         * バッファとして保持している画像リスト
+         */
+        buffeImages: Models.Image[];
+
+        /**
+         * 検索中かどうか
+         */
+        isSeaching: boolean;
+
+        /**
+         * 検索が完了したURL
+         */
+        searchCompletedUrl: string[];
     }
 
     /**
@@ -35,17 +50,78 @@ module NightWalker.Controllers {
             , private searcher: Services.SearchService) {
         }
 
+        /**
+         * 今までの検索結果をクリアして、新たに検索を行います。
+         */
         public search(): void {
-            // 検索クエリを取得
-            var condition = new Models.SearchCondition(this.$scope.searchUrl);
-            var query: string = this.queryCreator.getSearchQuery(condition);
+            // $scopeの初期化
+            this.initializeSearchScope();
+
+            // 検索先URLを$scopeのバッファにセットしておく
+            this.$scope.buffeHrefs.push(this.$scope.searchUrl);
 
             // 検索実行
-            this.searcher.search(query
-                , (data: Models.ImageResponse) => {
-                    this.$scope.images = data.Images;
-                    this.$scope.hrefs = data.Hrefs;
-                });
+            this.andSearch();
+        }
+
+        /**
+         * 今までの検索結果を保持したまま、追加で検索を行います。
+         */
+        public andSearch(): void {
+            var isFirstSearch = true;
+
+            while (isFirstSearch === true || ((this.$scope.images.length + 1) % 4) > 0) {
+                isFirstSearch = false;
+                if (this.$scope.buffeImages.length > 0) {
+                    // バッファから画像を表示する
+                    this.$scope.images.push(this.$scope.buffeImages.shift());
+                }
+                else if (this.$scope.buffeHrefs.length > 0) {
+                    // 検索中の場合は新たに検索しにいかない
+                    if (this.$scope.isSeaching === true) {
+                        break;
+                    }
+
+                    // 次の検索先がある場合は、新たな画像を検索しにいく
+                    // 検索クエリを取得
+                    var url = this.$scope.buffeHrefs.shift();
+                    // 検索するURLは検索済URLに入れておく
+                    this.$scope.searchCompletedUrl.push(url);
+                    var condition = new Models.SearchCondition(url);
+                    var query: string = this.queryCreator.getSearchQuery(condition);
+
+                    // 検索実行
+                    this.$scope.isSeaching = true;
+                    this.searcher.search(query
+                        , (data: Models.ImageResponse) => {
+                            this.$scope.buffeImages = this.$scope.buffeImages.concat(data.Images);
+                            var newUrls = $(data.Hrefs).not($(this.$scope.searchCompletedUrl)).get();
+                            this.$scope.buffeHrefs = this.$scope.buffeHrefs.concat(data.Hrefs);
+
+                            // 再帰呼び出し
+                            this.$scope.isSeaching = false;
+                            this.andSearch();
+                        });
+
+                    // 結果を受取るまで時間がかかるので、今回はおしまいにする
+                    break;
+                }
+                else {
+                    // 在庫切れ
+                    break;
+                }
+            }
+        }
+
+        /**
+         * $scopeの初期化を行います。
+         */
+        private initializeSearchScope(): void {
+            this.$scope.images = [];
+            this.$scope.buffeImages = [];
+            this.$scope.buffeHrefs = [];
+            this.$scope.isSeaching = false;
+            this.$scope.searchCompletedUrl = [];
         }
     }
 }
