@@ -6,7 +6,7 @@ module NightWalker.Models {
     /**
      * 画像モデル
      */
-    export class Image {
+    export class Image implements IResource {
         /**
          * コンストラクタ
          */

@@ -47,10 +47,15 @@
     <script src="scripts/app.js"></script>
 
     <!-- models -->
+    <script src="scripts/models/stock-state-model.js"></script>
+    <script src="scripts/models/i-resource-model.js"></script>
     <script src="scripts/models/search-condition-model.js"></script>
     <script src="scripts/models/image-model.js"></script>
+    <script src="scripts/models/resource-response-model.js"></script>
+    <script src="scripts/models/resource-manager-model.js"></script>
 
     <!-- services -->
+    <script src="scripts/services/image-comparer-service.js"></script>
     <script src="scripts/services/search-query-creator-service.js"></script>
     <script src="scripts/services/search-service.js"></script>
 
@@ -73,11 +78,11 @@
     <div class="container" ng-controller="SearchController as c">
         <p class="title">Night Walker</p>
         <div class="search-area">
-            <input type="text" class="target-url-text-box" placeholder="http://example.com/" ng-model="searchUrl" />
+            <input type="text" class="target-url-text-box" placeholder="http://example.com/" ng-model="storageAddress" />
             <img class="search-lens" src="images/search.png" ng-click="c.search()" />
         </div>
         <div class="thumbnail-container">
-            <div class="thumbnail-item" ng-repeat="image in images" style="width: {{image | displayWidth}}" downloaded>
+            <div class="thumbnail-item" ng-repeat="image in resourceManager.resources" style="width: {{image | displayWidth}}" downloaded>
                 <a href="{{image.url}}" download="{{image.url}}">
                     <img class="thumbnail" src="{{image.url}}" />
                     <div class="thumbnail-info">
@@ -85,7 +90,7 @@
                     </div>
                 </a>
             </div>
-            <div class="button and-more" ng-click="c.andSearch()">And More ...</div>
+            <div class="button and-more">And More ...</div>
         </div>
         <div id="loader" class="loader-none" loader>Loading...</div>
     </div>

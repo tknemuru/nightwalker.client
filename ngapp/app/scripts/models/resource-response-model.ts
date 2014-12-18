@@ -4,14 +4,14 @@ module NightWalker.Models {
     "use strict";
 
     /**
-     * 画像レスポンスモデル
+     * リソースレスポンスモデル
      */
-    export class ImageResponse {
+    export class ResourceResponse {
         /**
          * コンストラクタ
          */
-        constructor(public Images: Image[]
-            , public Hrefs: string[]) {
+        constructor(public Resources: IResource[]
+            , public StorageAddresses: string[]) {
         }
     }
 }

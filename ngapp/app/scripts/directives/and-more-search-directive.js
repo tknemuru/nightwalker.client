@@ -7,15 +7,15 @@ var NightWalker;
         /**
          * ローディング状態の遷移に関する機能を提供します。
          */
-        var Loader = (function () {
+        var AndMoreSearch = (function () {
             /**
              * コンストラクタ
              */
-            function Loader() {
+            function AndMoreSearch() {
                 this.restrict = 'A';
                 this.link = function (scope, element) {
-                    scope.$watch('resourceManager.stockState', function (newValue, oldValue) {
-                        if (newValue === 1 /* Searching */) {
+                    scope.$watch('isSearching', function (newValue, oldValue) {
+                        if (newValue === true) {
                             element.removeClass('loader-none');
                             element.addClass('loader');
                         }
@@ -26,12 +26,12 @@ var NightWalker;
                     });
                 };
             }
-            return Loader;
+            return AndMoreSearch;
         })();
-        Directives.Loader = Loader;
+        Directives.AndMoreSearch = AndMoreSearch;
     })(Directives = NightWalker.Directives || (NightWalker.Directives = {}));
 })(NightWalker || (NightWalker = {}));
-angular.module('NightWalker.Directives').directive('loader', [function () {
-    return new NightWalker.Directives.Loader();
+angular.module('NightWalker.Directives').directive('andMoreSearch', [function () {
+    return new NightWalker.Directives.AndMoreSearch();
 }]);
-//# sourceMappingURL=loader-directive.js.map
+//# sourceMappingURL=and-more-search-directive.js.map

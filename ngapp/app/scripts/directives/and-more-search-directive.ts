@@ -6,7 +6,7 @@ module NightWalker.Directives {
     /**
      * ローディング状態の遷移に関する機能を提供します。
      */
-    export class Loader implements ng.IDirective {
+    export class AndMoreSearch implements ng.IDirective {
         public restrict: string;
         public link: ng.IDirectiveLinkFn;
 
@@ -16,8 +16,8 @@ module NightWalker.Directives {
         constructor() {
             this.restrict = 'A';
             this.link = (scope: Controllers.ISearchConditionScope, element: ng.IAugmentedJQuery) => {
-                scope.$watch('resourceManager.stockState', (newValue: Models.StockState, oldValue: Models.StockState) => {
-                    if (newValue === Models.StockState.Searching) {
+                scope.$watch('isSearching', (newValue: boolean, oldValue: boolean) => {
+                    if (newValue === true) {
                         element.removeClass('loader-none');
                         element.addClass('loader');
                     }
@@ -31,4 +31,4 @@ module NightWalker.Directives {
     }
 }
 angular.module('NightWalker.Directives')
-    .directive('loader', [() => { return new NightWalker.Directives.Loader() }]);
+    .directive('andMoreSearch', [() => { return new NightWalker.Directives.AndMoreSearch() }]);
