@@ -38,7 +38,8 @@ module NightWalker.Controllers {
         constructor(private $scope: ISearchConditionScope
             , private queryCreator: Services.SearchQueryCreatorService
             , private searcher: Services.SearchService
-            , private reourceComparer: Services.ImageComparerService) {
+            , private reourceComparer: Services.ImageComparerService
+            , private logger: Services.LoggerService) {
         }
 
         /**
@@ -49,7 +50,8 @@ module NightWalker.Controllers {
             this.$scope.resourceManager = new Models.ResourceManager(this.$scope.storageAddress
                 , this.queryCreator
                 , this.searcher
-                , this.reourceComparer);
+                , this.reourceComparer
+                , this.logger);
 
             // 検索実行
             this.$scope.resourceManager.search();
@@ -57,4 +59,4 @@ module NightWalker.Controllers {
     }
 }
 angular.module('NightWalker.Controllers')
-    .controller('SearchController', ['$scope', 'SearchQueryCreatorService', 'SearchService', 'ImageComparerService', NightWalker.Controllers.SearchController]);
+    .controller('SearchController', ['$scope', 'SearchQueryCreatorService', 'SearchService', 'ImageComparerService', 'LoggerService', NightWalker.Controllers.SearchController]);

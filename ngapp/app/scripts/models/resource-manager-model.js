@@ -11,10 +11,11 @@ var NightWalker;
             /**
              * コンストラクタ
              */
-            function ResourceManager(storageAddress, queryCreator, searcher, reourceComparer) {
+            function ResourceManager(storageAddress, queryCreator, searcher, reourceComparer, logger) {
                 this.queryCreator = queryCreator;
                 this.searcher = searcher;
                 this.reourceComparer = reourceComparer;
+                this.logger = logger;
                 this._stockState = 0 /* NoManagement */;
                 this.resources = [];
                 this.storageAddresses = [];
@@ -48,6 +49,7 @@ var NightWalker;
                 var address = this.storageAddresses.shift();
                 var condition = new Models.SearchCondition(address);
                 var query = this.queryCreator.getSearchQuery(condition);
+                this.searchInformation = this.logger.searchStart(address);
                 // 探索実行
                 this.searcher.search(query, function (response) {
                     // 出荷開始

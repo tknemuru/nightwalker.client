@@ -11,18 +11,19 @@ var NightWalker;
             /**
              * コンストラクタ
              */
-            function SearchController($scope, queryCreator, searcher, reourceComparer) {
+            function SearchController($scope, queryCreator, searcher, reourceComparer, logger) {
                 this.$scope = $scope;
                 this.queryCreator = queryCreator;
                 this.searcher = searcher;
                 this.reourceComparer = reourceComparer;
+                this.logger = logger;
             }
             /**
              * 今までの探索結果をクリアして、新たに探索を行います。
              */
             SearchController.prototype.search = function () {
                 // リソース管理の初期化
-                this.$scope.resourceManager = new NightWalker.Models.ResourceManager(this.$scope.storageAddress, this.queryCreator, this.searcher, this.reourceComparer);
+                this.$scope.resourceManager = new NightWalker.Models.ResourceManager(this.$scope.storageAddress, this.queryCreator, this.searcher, this.reourceComparer, this.logger);
                 // 検索実行
                 this.$scope.resourceManager.search();
             };
@@ -31,5 +32,5 @@ var NightWalker;
         Controllers.SearchController = SearchController;
     })(Controllers = NightWalker.Controllers || (NightWalker.Controllers = {}));
 })(NightWalker || (NightWalker = {}));
-angular.module('NightWalker.Controllers').controller('SearchController', ['$scope', 'SearchQueryCreatorService', 'SearchService', 'ImageComparerService', NightWalker.Controllers.SearchController]);
+angular.module('NightWalker.Controllers').controller('SearchController', ['$scope', 'SearchQueryCreatorService', 'SearchService', 'ImageComparerService', 'LoggerService', NightWalker.Controllers.SearchController]);
 //# sourceMappingURL=search-controller.js.map

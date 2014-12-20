@@ -10,7 +10,7 @@ module NightWalker.Models {
         /**
          * 在庫状態
          */
-        public get stockState() {
+        public get stockState(): StockState {
             return this._stockState
         }
         private _stockState: StockState;
@@ -36,12 +36,18 @@ module NightWalker.Models {
         private shippedResources: IResource[]
 
         /**
+         * 探索ログ
+         */
+        private searchInformation: string;
+
+        /**
          * コンストラクタ
          */
         constructor(storageAddress: string
             , private queryCreator: Services.SearchQueryCreatorService
             , private searcher: Services.SearchService
-            , private reourceComparer: Controllers.IResourceComparer) {
+            , private reourceComparer: Controllers.IResourceComparer
+            , private logger: Services.LoggerService) {
             this._stockState = StockState.NoManagement;
             this.resources = [];
             this.storageAddresses = [];
@@ -67,6 +73,7 @@ module NightWalker.Models {
             var address: string = this.storageAddresses.shift();
             var condition = new Models.SearchCondition(address);
             var query: string = this.queryCreator.getSearchQuery(condition);
+            this.searchInformation = this.logger.searchStart(address);
 
             // 探索実行
             this.searcher.search(query
