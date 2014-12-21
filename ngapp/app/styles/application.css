@@ -9,11 +9,11 @@ input {
 
 .button {
 	display: inline-block;
-	width: 200px;
-	height: 54px;
+	width: 150px;
+	height: 40px;
 	text-align: center;
 	text-decoration: none;
-	line-height: 54px;
+	line-height: 40px;
 	outline: none;
     cursor: pointer;
     font-size: 21px;
@@ -21,12 +21,15 @@ input {
     background-color: #483d8b;
 	border: 2px solid #483d8b;
 	color: #fff;
-	line-height: 50px;
 }
 .button:hover {
-	background-color: #fff;
-	border-color: #0000cd;
+	background-color: #050528;
+	border-color: #050528;
 	color: #0000cd;
+}
+.button-selected {
+    background-color: #050528 !important;
+    border: 2px solid #050528 !important;
 }
 .button::before,
 .button::after {
@@ -175,12 +178,30 @@ input {
     order: 1;
 }
 
-.information-board {
+.function-container {
+    z-index: 9999;
     width: 100%;
-    height: 100px;
+    height: 0px;
+    display: flex;
+    flex-wrap: wrap;
     opacity:0.8;
-    background-color: #000066;
+    background-color: #050528;
     color: white;
     position: fixed;
     bottom: 0px;
+}
+
+.information-board {
+    margin-left: 10px;
+}
+
+.button-container {
+    width: 150px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button-icon {
+    margin-top: 3%;
+    height: 80%;
 }

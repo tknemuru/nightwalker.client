@@ -28,6 +28,7 @@ var NightWalker;
                             _this.write(scope, element, logger.searching());
                         }
                     }, 1000);
+                    // 情報の表示処理
                     scope.$watch('resourceManager.searchInformation', function (newValue, oldValue) {
                         _this.write(scope, element, newValue);
                     });
@@ -40,7 +41,7 @@ var NightWalker;
                 if (info === undefined) {
                     return;
                 }
-                element.children('#info-' + (this.infoSeqNo - 5)).remove();
+                element.children('#info-' + (this.infoSeqNo - 4)).remove();
                 element.append(this.$compile('<div id="info-' + this.infoSeqNo + '">' + info + '</div>')(scope));
                 this.infoSeqNo++;
             };
@@ -52,4 +53,4 @@ var NightWalker;
 angular.module('NightWalker.Directives').directive('informationBoard', ['$compile', 'LoggerService', function ($compile, logger) {
     return new NightWalker.Directives.InformationBoard($compile, logger);
 }]);
-//# sourceMappingURL=information-board.js.map
+//# sourceMappingURL=information-board-directive.js.map

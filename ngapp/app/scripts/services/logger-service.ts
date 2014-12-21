@@ -39,6 +39,13 @@ module NightWalker.Services {
             this.SearchingStr += '.';
             return this.SearchingStr;
         }
+
+        /**
+         * エラー発生時のログを生成します。
+         */
+        public errorOccurred(errorMessage: string): string {
+            return 'sorry, error occurred. ' + errorMessage;
+        }
     }
 }
 angular.module('NightWalker.Services')

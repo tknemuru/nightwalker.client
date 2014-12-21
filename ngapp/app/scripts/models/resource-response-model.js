@@ -11,9 +11,10 @@ var NightWalker;
             /**
              * コンストラクタ
              */
-            function ResourceResponse(Resources, StorageAddresses) {
+            function ResourceResponse(Resources, StorageAddresses, ErrorMessage) {
                 this.Resources = Resources;
                 this.StorageAddresses = StorageAddresses;
+                this.ErrorMessage = ErrorMessage;
             }
             return ResourceResponse;
         })();

@@ -29,6 +29,12 @@ var NightWalker;
                 return this.SearchingStr;
             };
             /**
+             * エラー発生時のログを生成します。
+             */
+            LoggerService.prototype.errorOccurred = function (errorMessage) {
+                return 'sorry, error occurred. ' + errorMessage;
+            };
+            /**
              * 探索中を示す情報の初期値
              */
             LoggerService.DefaultSearchingStr = 'Now Walking';

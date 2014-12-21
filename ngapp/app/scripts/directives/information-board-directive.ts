@@ -31,6 +31,7 @@ module NightWalker.Directives {
                     }
                 }, 1000);
 
+                // 情報の表示処理
                 scope.$watch('resourceManager.searchInformation', (newValue: string, oldValue: string) => {
                     this.write(scope, element, newValue);
                 });
@@ -45,7 +46,7 @@ module NightWalker.Directives {
                 return;
             }
 
-            element.children('#info-' + (this.infoSeqNo - 5)).remove();
+            element.children('#info-' + (this.infoSeqNo - 4)).remove();
             element.append(this.$compile('<div id="info-' + this.infoSeqNo + '">' + info + '</div>')(scope));
             this.infoSeqNo++;
         }

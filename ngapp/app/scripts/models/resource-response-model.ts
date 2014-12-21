@@ -11,7 +11,8 @@ module NightWalker.Models {
          * コンストラクタ
          */
         constructor(public Resources: IResource[]
-            , public StorageAddresses: string[]) {
+            , public StorageAddresses: string[]
+            , public ErrorMessage: string) {
         }
     }
 }

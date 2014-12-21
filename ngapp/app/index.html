@@ -47,6 +47,7 @@
 
     <!-- models -->
     <script src="scripts/models/stock-state-model.js"></script>
+    <script src="scripts/models/playing-state-model.js"></script>
     <script src="scripts/models/i-resource-model.js"></script>
     <script src="scripts/models/search-condition-model.js"></script>
     <script src="scripts/models/image-model.js"></script>
@@ -65,7 +66,10 @@
     <!-- directives -->
     <script src="scripts/directives/downloaded-directive.js"></script>
     <script src="scripts/directives/loader-directive.js"></script>
-    <script src="scripts/directives/information-board.js"></script>
+    <script src="scripts/directives/function-container-directive.js"></script>
+    <script src="scripts/directives/information-board-directive.js"></script>
+    <script src="scripts/directives/play-button-directive.js"></script>
+    <script src="scripts/directives/pause-button-directive.js"></script>
 
     <!-- controllers -->
     <script src="scripts/controllers/search-controller.js"></script>
@@ -91,10 +95,18 @@
                     </div>
                 </a>
             </div>
-            <!--<div class="button and-more">And More ...</div>-->
         </div>
-        <!--<div id="loader" class="loader-none" loader>Loading...</div>-->
-        <div class="information-board" information-board></div>
+        <div class="function-container" function-container>
+            <div class="button-container">
+                <div class="button button-selected" play-button>
+                    <img class="button-icon" src="/images/play_p.png" />
+                </div>
+                <div class="button" pause-button>
+                    <img class="button-icon" src="/images/stop_p.png" />
+                </div>
+            </div>
+            <div class="information-board" information-board></div>
+        </div>
     </div>
 </body>
 </html>

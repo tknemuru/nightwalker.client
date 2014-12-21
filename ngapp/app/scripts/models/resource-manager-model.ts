@@ -16,6 +16,11 @@ module NightWalker.Models {
         private _stockState: StockState;
 
         /**
+         * 再生状態
+         */
+        public playingState: PlayingState;
+
+        /**
          * 取得したリソースリスト
          */
         private resources: IResource[];
@@ -49,6 +54,7 @@ module NightWalker.Models {
             , private reourceComparer: Controllers.IResourceComparer
             , private logger: Services.LoggerService) {
             this._stockState = StockState.NoManagement;
+            this.playingState = PlayingState.Play;
             this.resources = [];
             this.storageAddresses = [];
             this.storageAddresses.push(storageAddress);
@@ -63,6 +69,11 @@ module NightWalker.Models {
             if (this.hasStock() === false) {
                 // 在庫切れなら処理終了
                 this._stockState = StockState.OutOfStock;
+                return;
+            }
+
+            if (this.playingState !== PlayingState.Play) {
+                // 再生以外の状態なら処理終了
                 return;
             }
 
@@ -96,6 +107,12 @@ module NightWalker.Models {
 
                     // 探索再開
                     this.search();
+                }
+                , (response: ResourceResponse) => {
+                    // 問題発生
+                    this._stockState = Models.StockState.ProblemOccurred;
+                    this.playingState = Models.PlayingState.Pause;
+                    this.searchInformation = this.logger.errorOccurred(response.ErrorMessage);
                 });
         }
 

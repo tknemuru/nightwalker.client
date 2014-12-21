@@ -40,6 +40,6 @@ module NightWalker.Models {
         /**
          * 問題発生
          */
-        ProblemOccurred
+        ProblemOccurred,
     }
 }

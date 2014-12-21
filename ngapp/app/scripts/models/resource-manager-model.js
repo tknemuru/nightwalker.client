@@ -17,6 +17,7 @@ var NightWalker;
                 this.reourceComparer = reourceComparer;
                 this.logger = logger;
                 this._stockState = 0 /* NoManagement */;
+                this.playingState = 1 /* Play */;
                 this.resources = [];
                 this.storageAddresses = [];
                 this.storageAddresses.push(storageAddress);
@@ -43,6 +44,10 @@ var NightWalker;
                     this._stockState = 4 /* OutOfStock */;
                     return;
                 }
+                if (this.playingState !== 1 /* Play */) {
+                    // 再生以外の状態なら処理終了
+                    return;
+                }
                 // 探索開始
                 this._stockState = 1 /* Searching */;
                 // 探索クエリを取得
@@ -66,6 +71,11 @@ var NightWalker;
                     _this._stockState = 3 /* ShippingComplated */;
                     // 探索再開
                     _this.search();
+                }, function (response) {
+                    // 問題発生
+                    _this._stockState = 5 /* ProblemOccurred */;
+                    _this.playingState = 2 /* Pause */;
+                    _this.searchInformation = _this.logger.errorOccurred(response.ErrorMessage);
                 });
             };
             /**
