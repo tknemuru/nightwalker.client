@@ -31,7 +31,10 @@ web.Release.config
 web.config
 
 # public
-# /public/
+/public/
 
 # TypeScript
 *.js.map
+
+# Gemfile.lock
+Gemfile.lock

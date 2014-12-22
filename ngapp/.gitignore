@@ -12,4 +12,4 @@ bin/
 web.config
 
 # images
-/app/images/
+# /app/images/
