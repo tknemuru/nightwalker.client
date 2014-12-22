@@ -12,8 +12,7 @@ var NightWalker;
              * コンストラクタ
              */
             function SearchQueryCreatorService() {
-                // TODO: 後でちゃんとやる
-                this.baseApiUrl = 'http://localhost:8080/api/v1/url/images/';
+                this.baseApiUrl = NightWalker.AppConfig.getBaseApiUrl() + 'url/images/';
             }
             /**
              * 検索クエリを取得します。

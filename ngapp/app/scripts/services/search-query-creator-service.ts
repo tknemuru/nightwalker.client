@@ -16,8 +16,7 @@ module NightWalker.Services {
          * コンストラクタ
          */
         constructor() {
-            // TODO: 後でちゃんとやる
-            this.baseApiUrl = 'http://localhost:8080/api/v1/url/images/';
+            this.baseApiUrl = AppConfig.getBaseApiUrl() + 'url/images/';
         }
 
         /**
