@@ -30,7 +30,7 @@ var NightWalker;
          */
         AppConfig.getBaseApiUrl = function () {
             if (AppConfig.getEnvironment() === 1 /* Production */) {
-                return 'http://nightwalker-api/api/v1/';
+                return 'http://nightwalker-api.herokuapp.com/api/v1/';
             }
             else {
                 return 'http://localhost:8080/api/v1/';
