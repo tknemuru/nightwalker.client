@@ -23,7 +23,7 @@ var NightWalker;
         function AppConfig() {
         }
         AppConfig.getEnvironment = function () {
-            return 1 /* Production */;
+            return 0 /* Development */;
         };
         /**
          * APIの基底URLを取得します。
