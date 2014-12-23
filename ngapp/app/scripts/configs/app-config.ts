@@ -23,7 +23,7 @@ module NightWalker {
      */
     export class AppConfig {
         public static getEnvironment(): Environment {
-            return Environment.Development;
+            return Environment.Production;
         }
 
         /**
